@@ -1,7 +1,15 @@
 # turing
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This README outlines the details of this Ember application.
+
+Simple Turing Machine Adder Visualization:
+
+Demonstrates the following in a visual manner:
+  - Tape Advancement
+  - current cell pointer
+  - Modification of a cell
+  - State
+  - automatic or manual step by step instruction execution
 
 ## Prerequisites
 
