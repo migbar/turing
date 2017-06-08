@@ -1,4 +1,4 @@
-
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 const SAMPLE_INSTRUCTIONS = [
@@ -76,24 +76,24 @@ test('it renders the right text for regular headers', function(assert) {
   this.set('instructions', SAMPLE_INSTRUCTIONS);
   this.render(hbs`{{instruction-list instructions=instructions}}`);
 
-  assert.equal($(this.$('th:not(".condition")')[0]).text().trim(), 'New Value', 'Renders New Value header');
-  assert.equal($(this.$('th:not(".condition")')[1]).text().trim(), 'Tape Move', 'Renders Tape Move header');
-  assert.equal($(this.$('th:not(".condition")')[2]).text().trim(), 'New State', 'Renders New State header');
+  assert.equal(Ember.$(this.$('th:not(".condition")')[0]).text().trim(), 'New Value', 'Renders New Value header');
+  assert.equal(Ember.$(this.$('th:not(".condition")')[1]).text().trim(), 'Tape Move', 'Renders Tape Move header');
+  assert.equal(Ember.$(this.$('th:not(".condition")')[2]).text().trim(), 'New State', 'Renders New State header');
 });
 
 test('it renders the right text for condition cells', function(assert) {
   this.set('instructions', SAMPLE_INSTRUCTIONS);
   this.render(hbs`{{instruction-list instructions=instructions}}`);
 
-  assert.equal($(this.$('td.condition:nth-of-type(1)')[0]).text().trim(), SAMPLE_INSTRUCTIONS[0].state, 'Renders match state cell text');
-  assert.equal($(this.$('td.condition:nth-of-type(2)')[0]).text().trim(), SAMPLE_INSTRUCTIONS[0].trigger, 'Renders match trigge text');
+  assert.equal(Ember.$(this.$('td.condition:nth-of-type(1)')[0]).text().trim(), SAMPLE_INSTRUCTIONS[0].state, 'Renders match state cell text');
+  assert.equal(Ember.$(this.$('td.condition:nth-of-type(2)')[0]).text().trim(), SAMPLE_INSTRUCTIONS[0].trigger, 'Renders match trigge text');
 });
 
 test('it renders the right text for regular cells', function(assert) {
   this.set('instructions', SAMPLE_INSTRUCTIONS);
   this.render(hbs`{{instruction-list instructions=instructions}}`);
 
-  assert.equal($(this.$('td:not(".condition")')[0]).text().trim(), SAMPLE_INSTRUCTIONS[0].value, 'Renders New Value cell text');
-  assert.equal($(this.$('td:not(".condition")')[1]).text().trim(), SAMPLE_INSTRUCTIONS[0].move, 'Renders Tape Move cell text');
-  assert.equal($(this.$('td:not(".condition")')[2]).text().trim(), SAMPLE_INSTRUCTIONS[0].newState, 'Renders New State cell text');
+  assert.equal(Ember.$(this.$('td:not(".condition")')[0]).text().trim(), SAMPLE_INSTRUCTIONS[0].value, 'Renders New Value cell text');
+  assert.equal(Ember.$(this.$('td:not(".condition")')[1]).text().trim(), SAMPLE_INSTRUCTIONS[0].move, 'Renders Tape Move cell text');
+  assert.equal(Ember.$(this.$('td:not(".condition")')[2]).text().trim(), SAMPLE_INSTRUCTIONS[0].newState, 'Renders New State cell text');
 });

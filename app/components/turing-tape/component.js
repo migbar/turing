@@ -1,7 +1,7 @@
 import Ember from 'ember';
 const { computed } = Ember;
 
-const CELL_WIDTH = 78.668;
+const CELL_WIDTH = 79.6;
 const RIGHT = -1;
 const LEFT = 1;
 
@@ -17,19 +17,11 @@ export default Ember.Component.extend({
     if (this.get('firstRender')) {
       this.set('firstRender', false);
       this.set('initialPosition', this.get('tapePosition'));
-      this.translateTape();
+      this.scrollTape();
     }
   },
 
-  activeCell: computed('tapePosition', function() {
-    if (!this.get('initialPosition')) {
-      return this.get('tapePosition');
-    }
-    let displacement = this.get('initialPosition') - this.get('tapePosition');
-    return this.get('initialPosition') + displacement;
-  }),
-
-  translateTape() {
+  scrollTape() {
     let tape = this.$('.tape')[0];
     let holder = this.$('.cell-holder')[0];
     let state = this.$('.state-holder')[0];
@@ -44,21 +36,31 @@ export default Ember.Component.extend({
     this.set('currentTranslate', translateXAmount);
 
     Ember.$(tape).css('transform', `translateX(-${translateXAmount}px)`);
-    Ember.$(holder).css('left', activeRect.left - translateXAmount - 15);
-    Ember.$(holder).css('top', activeRect.top - translateYAmount + 17);
-    Ember.$(state).css('left', activeRect.left - translateXAmount - 15);
-    Ember.$(state).css('top', activeRect.top - translateYAmount + 100);
+
+    Ember.$(holder).css('left', activeRect.left - translateXAmount - 6);
+    Ember.$(holder).css('top', activeRect.top - translateYAmount - 7);
+
+    Ember.$(state).css('left', activeRect.left - translateXAmount - 6);
+    Ember.$(state).css('top', activeRect.top - translateYAmount + 70);
   },
+
+  activeCell: computed('tapePosition', function() {
+    if (!this.get('initialPosition')) {
+      return this.get('tapePosition');
+    }
+    let displacement = this.get('initialPosition') - this.get('tapePosition');
+    return this.get('initialPosition') + displacement;
+  }),
 
   tapeTranslate: computed('tapePosition', function() {
     let moveRight = this.get('tapePosition') > this.get('previousTapePosition');
-    return moveRight ? this.translate(RIGHT) : this.translate(LEFT);
+    return moveRight ? this._translate(RIGHT) : this._translate(LEFT);
   }),
 
-  translate(rightOrLeftFactor) {
-    this.set('previousTapePosition', this.get('tapePosition'));
+  _translate(rightOrLeftFactor) {
     let newTranslate = this.get('currentTranslate') + CELL_WIDTH * rightOrLeftFactor;
     this.set('currentTranslate', newTranslate);
+    this.set('previousTapePosition', this.get('tapePosition'));
     return Ember.String.htmlSafe(`transform: translateX(-${this.get('currentTranslate')}px)`);
   }
 
