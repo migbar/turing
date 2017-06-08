@@ -11,7 +11,7 @@ export default Ember.Component.extend({
   previousTapePosition: null,
   firstRender: true,
   state: null,
-  
+
   didRender() {
     this._super(...arguments);
     if (this.get('firstRender')) {
@@ -38,15 +38,16 @@ export default Ember.Component.extend({
     let containerRect = this.$()[0].getBoundingClientRect();
     let activeRect = this.$('.active')[0].getBoundingClientRect();
 
-    let translateAmount = tapeRect.left + tapeRect.width / 2 - containerRect.width / 2 + 50;
-    this.set('currentTranslate', translateAmount);
+    let translateXAmount = tapeRect.left + tapeRect.width / 2 - containerRect.width / 2 + 50;
+    let translateYAmount = tapeRect.top;
 
-    Ember.$(tape).css('transform', `translateX(-${translateAmount}px)`);
-    Ember.$(holder).css('left', (activeRect.left - 15) - translateAmount);
-    Ember.$(holder).css('top', activeRect.top - 15);
+    this.set('currentTranslate', translateXAmount);
 
-    Ember.$(state).css('left', (activeRect.left - 15) - translateAmount);
-    Ember.$(state).css('top', activeRect.top + 65);
+    Ember.$(tape).css('transform', `translateX(-${translateXAmount}px)`);
+    Ember.$(holder).css('left', activeRect.left - translateXAmount - 15);
+    Ember.$(holder).css('top', activeRect.top - translateYAmount + 17);
+    Ember.$(state).css('left', activeRect.left - translateXAmount - 15);
+    Ember.$(state).css('top', activeRect.top - translateYAmount + 100);
   },
 
   tapeTranslate: computed('tapePosition', function() {
