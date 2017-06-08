@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
   font-size: 24px;
 }
 
@@ -41,6 +41,7 @@ body {
   color: white;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
+  z-index: 10;
 }
 
 .cell {
@@ -66,4 +67,49 @@ body {
 
 .actions {
   text-align: center;
+}
+
+.instruction-list {
+  min-height: 300px;
+}
+
+h4 {
+  color: #777;
+}
+
+.instruction-table {
+  font-size: 14px;
+  background: #fff;
+  width: 80%;
+  border-collapse: collapse;
+  text-align: left;
+  margin: 0 auto;
+}
+
+.instruction-table th {
+  font-size: 16px;
+  font-weight: normal;
+  color: #4285f4;
+  border-bottom: 2px solid #4285f4;
+  padding: 10px 8px 16px 8px;
+  text-align: center;
+}
+
+.instruction-table th.condition {
+  background: #4285f4;
+  color: white;
+}
+.instruction-table td.condition {
+  background: #f5f5f5;
+  border-bottom: 1px solid white;
+}
+.instruction-table td {
+  border-bottom: 1px solid #eee;
+  color: #669;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.instruction-table tbody tr:hover td {
+  color: red;
 }

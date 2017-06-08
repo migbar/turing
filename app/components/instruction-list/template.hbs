@@ -1,0 +1,23 @@
+<h4>Instructions:</h4>
+<table class="instruction-table">
+  <thead>
+    <tr>
+      <th scope="col" class='condition'>Match State</th>
+      <th scope="col" class='condition'>Match Value</th>
+      <th scope="col">New Value</th>
+      <th scope="col">Tape Move</th>
+      <th scope="col">New State</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each instructions as |i|}}
+    <tr>
+      <td class='condition'>{{i.state}}</td>
+      <td class='condition'>{{i.trigger}}</td>
+      <td>{{i.value}}</td>
+      <td>{{i.move}}</td>
+      <td>{{i.newState}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
