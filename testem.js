@@ -3,10 +3,19 @@ module.exports = {
   "test_page": "tests/index.html?hidepassed",
   "disable_watching": true,
   "launch_in_ci": [
-    "PhantomJS"
+    // "PhantomJS",
+    "Chrome",
+    "Firefox",
+    "IE9",
+    // "Safari",
+    "Opera"
   ],
   "launch_in_dev": [
-    "PhantomJS",
-    "Chrome"
+    // "PhantomJS",
+    "Chrome",
+    "Firefox",
+    "IE9",
+    // "Safari",
+    "Opera"
   ]
 };
