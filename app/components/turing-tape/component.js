@@ -12,6 +12,8 @@ export default Ember.Component.extend({
   firstRender: true,
   state: null,
 
+  activeCell: computed.alias('tapePosition'),
+
   didRender() {
     this._super(...arguments);
     if (this.get('firstRender')) {
@@ -36,30 +38,19 @@ export default Ember.Component.extend({
     this.set('currentTranslate', translateXAmount);
 
     Ember.$(tape).css('transform', `translateX(-${translateXAmount}px)`);
-
     Ember.$(holder).css('left', activeRect.left - translateXAmount - 6);
     Ember.$(holder).css('top', activeRect.top - translateYAmount - 7);
-
     Ember.$(state).css('left', activeRect.left - translateXAmount - 6);
     Ember.$(state).css('top', activeRect.top - translateYAmount + 70);
   },
 
-  activeCell: computed('tapePosition', function() {
-    let initialPosition = this.get('initialPosition');
-    let tapePosition = this.get('tapePosition');
-    if (!initialPosition) {
-      return tapePosition;
-    }
-    return initialPosition + initialPosition - tapePosition;
-  }),
-
   tapeTranslate: computed('tapePosition', function() {
-    let moveRight = this.get('tapePosition') > this.get('previousTapePosition');
-    return moveRight ? this._translate(RIGHT) : this._translate(LEFT);
+    let moveLeft = this.get('tapePosition') > this.get('previousTapePosition');
+    return moveLeft ? this._translate(LEFT) : this._translate(RIGHT);
   }),
 
-  _translate(rightOrLeftFactor) {
-    let newTranslate = this.get('currentTranslate') + CELL_WIDTH * rightOrLeftFactor;
+  _translate(direction) {
+    let newTranslate = this.get('currentTranslate') + CELL_WIDTH * direction;
     this.set('currentTranslate', newTranslate);
     this.set('previousTapePosition', this.get('tapePosition'));
     return Ember.String.htmlSafe(`transform: translateX(-${this.get('currentTranslate')}px)`);

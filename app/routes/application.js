@@ -1,13 +1,17 @@
 import Ember from 'ember';
-import INSTRUCTIONS from 'turing/fixtures/instructions';
-const CELL_COUNT = 500;
+import instructions from 'turing/fixtures/instructions';
+const CELL_COUNT = 200;
 
 export default Ember.Route.extend({
 
   model() {
+    let cells = [];
+    for (var i = 0; i < CELL_COUNT; i++) {
+      cells.pushObject(Ember.Object.create({ value: 0 }));
+    }
     return {
-      cells: Array(CELL_COUNT).fill(0),
-      instructions: INSTRUCTIONS
+      cells,
+      instructions
     }
   },
 
