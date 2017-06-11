@@ -45,11 +45,12 @@ export default Ember.Component.extend({
   },
 
   activeCell: computed('tapePosition', function() {
-    if (!this.get('initialPosition')) {
-      return this.get('tapePosition');
+    let initialPosition = this.get('initialPosition');
+    let tapePosition = this.get('tapePosition');
+    if (!initialPosition) {
+      return tapePosition;
     }
-    let displacement = this.get('initialPosition') - this.get('tapePosition');
-    return this.get('initialPosition') + displacement;
+    return initialPosition + initialPosition - tapePosition;
   }),
 
   tapeTranslate: computed('tapePosition', function() {
