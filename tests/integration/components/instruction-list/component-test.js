@@ -1,43 +1,16 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-const SAMPLE_INSTRUCTIONS = [
-  {
-    state: 'S1',
-    trigger: '0',
-    value: '1',
-    move: 'R',
-    newState: 'S2'
-  },
-  {
-    state: 'S2',
-    trigger: '1',
-    value: '0',
-    move: 'L',
-    newState: 'S2'
-  },
-  {
-    state: 'S2',
-    trigger: '0',
-    value: '1',
-    move: 'R',
-    newState: 'S3'
-  },
-  {
-    state: 'S3',
-    trigger: '1',
-    value: '0',
-    move: 'L',
-    newState: 'S4'
-  },
-  {
-    state: 'S4',
-    trigger: '0',
-    value: '0',
-    move: 'R',
-    newState: 'S4'
-  }
-];
+let SAMPLE_INSTRUCTIONS = {};
+
+SAMPLE_INSTRUCTIONS[['0','S1']] = ['(', 'R', 'S2'];
+SAMPLE_INSTRUCTIONS[['0','S2']] = ['1', 'R', 'S3'];
+SAMPLE_INSTRUCTIONS[['0','S3']] = ['1', 'R', 'S4'];
+SAMPLE_INSTRUCTIONS[['0','S4']] = ['+', 'R', 'S5'];
+SAMPLE_INSTRUCTIONS[['0','S5']] = ['1', 'R', 'S6'];
+SAMPLE_INSTRUCTIONS[['0','S6']] = ['1', 'R', 'S7'];
+SAMPLE_INSTRUCTIONS[['0','S7']] = ['1', 'R', 'S8'];
+SAMPLE_INSTRUCTIONS[['0','S8']] = [')', 'R', 'S9'];
 
 moduleForComponent('instruction-list', 'Integration | Component | instruction list', {
   integration: true
@@ -61,7 +34,7 @@ test('it renders the condition cells', function(assert) {
   this.set('instructions', SAMPLE_INSTRUCTIONS);
   this.render(hbs`{{instruction-list instructions=instructions}}`);
 
-  assert.equal(this.$('td.condition').length, 2*SAMPLE_INSTRUCTIONS.length, 'Renders condition cells');
+  assert.equal(this.$('td.condition').length, 2*Object.entries(SAMPLE_INSTRUCTIONS).length, 'Renders condition cells');
 });
 
 test('it renders the right text for condition headers', function(assert) {
@@ -85,15 +58,15 @@ test('it renders the right text for condition cells', function(assert) {
   this.set('instructions', SAMPLE_INSTRUCTIONS);
   this.render(hbs`{{instruction-list instructions=instructions}}`);
 
-  assert.equal(Ember.$(this.$('td.condition:nth-of-type(1)')[0]).text().trim(), SAMPLE_INSTRUCTIONS[0].state, 'Renders match state cell text');
-  assert.equal(Ember.$(this.$('td.condition:nth-of-type(2)')[0]).text().trim(), SAMPLE_INSTRUCTIONS[0].trigger, 'Renders match trigge text');
+  assert.equal(Ember.$(this.$('td.condition:nth-of-type(1)')[0]).text().trim(), '0', 'Renders match state cell text');
+  assert.equal(Ember.$(this.$('td.condition:nth-of-type(2)')[0]).text().trim(), 'S1', 'Renders match trigge text');
 });
 
 test('it renders the right text for regular cells', function(assert) {
   this.set('instructions', SAMPLE_INSTRUCTIONS);
   this.render(hbs`{{instruction-list instructions=instructions}}`);
 
-  assert.equal(Ember.$(this.$('td:not(".condition")')[0]).text().trim(), SAMPLE_INSTRUCTIONS[0].value, 'Renders New Value cell text');
-  assert.equal(Ember.$(this.$('td:not(".condition")')[1]).text().trim(), SAMPLE_INSTRUCTIONS[0].move, 'Renders Tape Move cell text');
-  assert.equal(Ember.$(this.$('td:not(".condition")')[2]).text().trim(), SAMPLE_INSTRUCTIONS[0].newState, 'Renders New State cell text');
+  assert.equal(Ember.$(this.$('td:not(".condition")')[0]).text().trim(), '(', 'Renders New Value cell text');
+  assert.equal(Ember.$(this.$('td:not(".condition")')[1]).text().trim(), 'R', 'Renders Tape Move cell text');
+  assert.equal(Ember.$(this.$('td:not(".condition")')[2]).text().trim(), 'S2', 'Renders New State cell text');
 });

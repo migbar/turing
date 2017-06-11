@@ -10,13 +10,13 @@
     </tr>
   </thead>
   <tbody>
-    {{#each instructions as |i|}}
+    {{#each instructionsCollection as |instruction|}}
     <tr>
-      <td class='condition'>{{i.state}}</td>
-      <td class='condition'>{{i.trigger}}</td>
-      <td>{{i.value}}</td>
-      <td>{{i.move}}</td>
-      <td>{{i.newState}}</td>
+      <td class='condition'>{{extract instruction 'state'}}</td>
+      <td class='condition'>{{extract instruction 'trigger'}}</td>
+      <td>{{extract instruction 'value'}}</td>
+      <td>{{extract instruction 'move'}}</td>
+      <td>{{extract instruction 'newState'}}</td>
     </tr>
     {{/each}}
   </tbody>
