@@ -7,7 +7,7 @@ export default Ember.Route.extend({
   model() {
     let cells = [];
     for (var i = 0; i < CELL_COUNT; i++) {
-      cells.pushObject(Ember.Object.create({ value: 0 }));
+      cells.pushObject(Ember.Object.create({ value: '0' }));
     }
     return {
       cells,

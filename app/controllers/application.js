@@ -1,10 +1,17 @@
 import Ember from 'ember';
+import { task, timeout } from 'ember-concurrency';
+
 const { computed } = Ember;
+
+const VALUE = 0;
+const DIRECTION = 1;
+const NEW_STATE = 2;
+const RIGHT = 'R';
+const MAXIMUM_EXECUTION_COUNT = 20;
 
 export default Ember.Controller.extend({
 
   currentState: 'S1',
-
   currentValue: computed('tapePosition', 'cells.@each', {
 
     get() {
@@ -25,23 +32,23 @@ export default Ember.Controller.extend({
   }),
 
   findMatchingInstruction() {
-    let condition = [this.get('currentState'), this.get('currentValue')];
-    return this.get('instructions')[condition];
+    return this.get('instructions')[this.get('currentCondition')];
   },
 
+  currentCondition: Ember.computed('currentState', 'currentValue', function() {
+    return [this.get('currentState'), this.get('currentValue')];
+  }),
+
   writeValue(instruction) {
-    let value = instruction[0];
-    this.set('currentValue', value);
+    this.set('currentValue', instruction[VALUE]);
   },
 
   moveTape(instruction) {
-    let direction = instruction[1];
-    direction === 'R' ? this.moveRight() : this.moveLeft();
+    instruction[DIRECTION] === RIGHT ? this.moveRight() : this.moveLeft();
   },
 
   updateState(instruction) {
-    let newState = instruction[2];
-    this.set('currentState', newState);
+    this.set('currentState', instruction[NEW_STATE]);
   },
 
   moveRight() {
@@ -52,13 +59,27 @@ export default Ember.Controller.extend({
     this.decrementProperty('tapePosition');
   },
 
-  actions: {
+  isAtEnd() {
+    return this.get('executionCount') >= MAXIMUM_EXECUTION_COUNT;
+  },
 
-    play() {
+  playAll: task(function * () {
+
+    while (this.findMatchingInstruction() && !this.isAtEnd()) {
+      this.incrementProperty('executionCount');
       let instruction = this.findMatchingInstruction();
       this.writeValue(instruction);
       this.moveTape(instruction);
       this.updateState(instruction);
+      yield timeout(400);
+    }
+
+  }).drop(),
+
+  actions: {
+
+    reset() {
+      console.log('reset');
     }
 
   }

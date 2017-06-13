@@ -5,9 +5,13 @@
   {{instruction-list instructions=instructions}}
 
   <div class="actions">
-    <button type="button" name="button" {{action "play"}}>PLAY</button>
-    <button type="button" name="button" {{action "down"}}>LEFT</button>
-    <button type="button" name="button" {{action "up"}}>RIGHT</button>
+    <button class={{if playAll.isIdle 'button-primary'}} onclick={{perform playAll}}>
+      {{#if playAll.isIdle}}
+        Play All
+      {{else}}
+        Playing All...
+      {{/if}}
+    </button>
   </div>
 
   {{turing-tape cells=cells tapePosition=tapePosition state=currentState}}

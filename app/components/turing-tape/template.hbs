@@ -1,4 +1,4 @@
-<ul class="tape" style={{tapeTranslate}}>
+<ul class="tape" style={{tapeMovement}}>
   {{#each cells as |value index|}}
     <li class="cell {{cell-position index}} {{if (eq index activeCell ) 'active'}}">
       {{value.value}}
@@ -10,6 +10,4 @@
 
 <div class="state-holder">
   {{state}}
-  <br/>
-  {{activeCell}}
 </div>
