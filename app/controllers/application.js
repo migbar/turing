@@ -7,6 +7,7 @@ const VALUE = 0;
 const DIRECTION = 1;
 const NEW_STATE = 2;
 const RIGHT = 'R';
+
 const MAXIMUM_EXECUTION_COUNT = 20;
 
 export default Ember.Controller.extend({
@@ -63,24 +64,29 @@ export default Ember.Controller.extend({
     return this.get('executionCount') >= MAXIMUM_EXECUTION_COUNT;
   },
 
+  execute(instruction) {
+    this.writeValue(instruction);
+    this.moveTape(instruction);
+    this.updateState(instruction);
+  },
+
   playAll: task(function * () {
 
     while (this.findMatchingInstruction() && !this.isAtEnd()) {
       this.incrementProperty('executionCount');
       let instruction = this.findMatchingInstruction();
-      this.writeValue(instruction);
-      this.moveTape(instruction);
-      this.updateState(instruction);
+      this.execute(instruction);
       yield timeout(400);
     }
 
   }).drop(),
 
-  actions: {
-
-    reset() {
-      console.log('reset');
+  play: task(function * () {
+    let instruction = this.findMatchingInstruction();
+    if (instruction && !this.isAtEnd()) {
+      this.execute(instruction);
+      yield timeout(400);
     }
 
-  }
+  }).drop()
 })
