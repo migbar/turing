@@ -63,14 +63,27 @@ export default Ember.Controller.extend({
     return this.get('executionCount') >= MAXIMUM_EXECUTION_COUNT;
   },
 
+  execute(instruction) {
+    this.writeValue(instruction);
+    this.moveTape(instruction);
+    this.updateState(instruction);
+  },
+
   playAll: task(function * () {
 
     while (this.findMatchingInstruction() && !this.isAtEnd()) {
       this.incrementProperty('executionCount');
       let instruction = this.findMatchingInstruction();
-      this.writeValue(instruction);
-      this.moveTape(instruction);
-      this.updateState(instruction);
+      this.execute(instruction);
+      yield timeout(400);
+    }
+
+  }).drop(),
+
+  play: task(function * () {
+    let instruction = this.findMatchingInstruction();
+    if (instruction && !this.isAtEnd()) {
+      this.execute(instruction);
       yield timeout(400);
     }
 
