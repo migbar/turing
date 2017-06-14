@@ -1,29 +1,33 @@
-<header>Turing Player</header>
+{{#mdl-nav title='Turing Simulator' fixedHeader=true}}
 
-<section class="main">
+  {{mdl-nav-item name='Visualizer' route='application'}}
 
-  {{instruction-list instructions=instructions}}
+  <section class="main">
 
-  <div class="actions">
+    {{instruction-list instructions=instructions}}
 
-    <button class={{if playAll.isIdle 'button-primary'}} onclick={{perform playAll}}>
-      {{#if playAll.isIdle}}
-        Play All
-      {{else}}
-        Playing All...
-      {{/if}}
-    </button>
+    <div class="actions">
+      {{#mdl-button isRaised=true click=(perform play)}}
+        {{#if play.isIdle}}
+          Play
+          {{else}}
+          Playing...
+        {{/if}}
+      {{/mdl-button}}
 
-    <button class={{if play.isIdle 'button-primary'}} onclick={{perform play}}>
-      {{#if play.isIdle}}
-        Play
-      {{else}}
-        Playing...
-      {{/if}}
-    </button>
+      {{#mdl-button isRaised=true click=(perform playAll)}}
+        {{#if playAll.isIdle}}
+          Play All
+        {{else}}
+          Playing All...
+        {{/if}}
+      {{/mdl-button}}
 
-  </div>
+      {{mdl-button text='Reset' action='reset'}}
+    </div>
 
-  {{turing-tape cells=cells tapePosition=tapePosition state=currentState}}
+    {{turing-tape cells=cells tapePosition=tapePosition state=currentState}}
 
-</section>
+  </section>
+
+{{/mdl-nav}}

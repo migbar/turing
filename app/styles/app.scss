@@ -1,7 +1,13 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+@import "_color-definitions";
+
+
+$color-primary: $palette-blue-500;
+$color-accent-turing: $palette-amber-500;
+
+$color-primary-turing: #2196F3;
+$color-accent-turing: #FFC107;
+
+@import 'material-design-lite';
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -53,8 +59,10 @@ body {
   font-size: 24px;
 }
 
+//
+
 header {
-  background: #4285f4;
+  background: $color-primary-turing;
   color: white;
   padding: 20px;
   width: 100%;
@@ -86,7 +94,7 @@ header {
   padding: 20px 20px;
   height: 29px;
   width: 29px;
-  border: 7px solid #4285f4;
+  border: 7px solid $color-primary-turing;
   box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
 }
 
@@ -95,10 +103,10 @@ header {
   padding-top: 20px;
   min-height: 50px;
   min-width: 69px;
-  border: 7px solid #4285f4;
-  background: #4285f4;
+  border: 7px solid $color-primary-turing;
+  background: $color-primary-turing;
   font-weight: 700;
-  color: #fbbc05;
+  color: $color-accent-turing;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
   z-index: 10;
@@ -121,7 +129,7 @@ header {
   transition: all;
   transition-duration: 0.5s;
   transition-delay: 0.2s;
-  background: #fbbc05;
+  background: $color-accent-turing;
   color: white;
 }
 
@@ -169,14 +177,14 @@ h4 {
 .instruction-table th {
   font-size: 16px;
   font-weight: normal;
-  color: #4285f4;
-  border-bottom: 2px solid #4285f4;
+  color: $color-primary-turing;
+  border-bottom: 2px solid $color-primary-turing;
   padding: 10px 8px 16px 8px;
   text-align: center;
 }
 
 .instruction-table th.condition {
-  background: #4285f4;
+  background: $color-primary-turing;
   color: white;
 }
 
@@ -193,17 +201,17 @@ h4 {
 }
 
 .instruction-table tbody tr:hover td {
-  color: #fbbc05;
+  color: $color-accent-turing;
 }
 
 .instruction-table tbody tr:hover td.condition {
-  background: #fbbc05;
+  background: $color-accent-turing;
   color: white;
 }
  button {
    padding: 10px;
    width: 200px;
-   background: #fbbc05;
+   background: $color-accent-turing;
    color: white;
    font-size: 14px;
  }

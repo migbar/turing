@@ -3,6 +3,8 @@ import { task, timeout } from 'ember-concurrency';
 
 const { computed } = Ember;
 
+const INITIAL_STATE = 'S1';
+
 const VALUE = 0;
 const DIRECTION = 1;
 const NEW_STATE = 2;
@@ -12,7 +14,7 @@ const MAXIMUM_EXECUTION_COUNT = 20;
 
 export default Ember.Controller.extend({
 
-  currentState: 'S1',
+  currentState: INITIAL_STATE,
   currentValue: computed('tapePosition', 'cells.@each', {
 
     get() {
@@ -88,5 +90,17 @@ export default Ember.Controller.extend({
       yield timeout(400);
     }
 
-  }).drop()
+  }).drop(),
+
+  resetState() {
+    this.set('currentState', INITIAL_STATE);
+    this.set('executionCount', 0);
+  },
+
+  actions: {
+    reset() {
+      this.resetState();
+      Ember.getOwner(this).lookup(`route:application`).refresh();
+    }
+  }
 })
