@@ -1,7 +1,7 @@
 import Ember from 'ember';
 const { computed } = Ember;
 
-const CELL_WIDTH = 79.45;
+const CELL_WIDTH = 78.45;
 const RIGHT = -1;
 const LEFT = 1;
 
