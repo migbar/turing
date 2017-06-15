@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import instructions from 'turing/fixtures/instructions';
-const CELL_COUNT = 200;
+const CELL_COUNT = 60;
 
 export default Ember.Route.extend({
 
