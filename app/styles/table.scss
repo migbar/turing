@@ -1,0 +1,67 @@
+.instruction-list {
+  min-height: 300px;
+  margin: 20px;
+}
+
+.instruction-table {
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  font-size: 14px;
+  background: #fff;
+  width: 80%;
+  border-collapse: collapse;
+  text-align: left;
+  margin: 0 auto;
+
+  thead tr {
+    display: block;
+    position: relative;
+  }
+
+  th, td {
+    width: 200px;
+  }
+
+  tbody {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    height: 300px;
+  }
+
+  th {
+    font-size: 16px;
+    font-weight: normal;
+    color: $color-primary-turing;
+    border-bottom: 2px solid $color-primary-turing;
+    padding: 10px 8px 16px 8px;
+    text-align: center;
+  }
+
+  th.condition {
+    background: $color-primary-turing;
+    color: white;
+  }
+
+  td.condition {
+    background: $light-gray;
+    border-bottom: 1px solid white;
+  }
+
+  td {
+    border-bottom: 1px solid #eee;
+    color: #669;
+    padding: 6px 8px;
+    text-align: center;
+  }
+
+  tbody tr:hover td {
+    color: $color-accent-turing;
+  }
+
+  tbody tr:hover td.condition {
+    background: $color-accent-turing;
+    color: white;
+  }
+}
